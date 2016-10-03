@@ -1,0 +1,1938 @@
+<?php
+
+function BDW_host_locations_install() {
+  node_types_rebuild();
+  $types = node_type_get_types();
+
+  // Now add the field instances, copy data from boondocking_available field instances
+  $instances = array(
+    array (
+      'default_value' => 
+      array (
+        0 => 
+        array (
+          'value' => '',
+          'format' => 1,
+          '_error_element' => 'default_value_widget][field_ba_description][0][value',
+        ),
+      ),
+      'description' => 'Give a short description of your boondocking location.
+    <p>
+    ',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 2,
+        ),
+        'full' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => -2,
+        ),
+        'rss' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => -2,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => -2,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => -2,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => -2,
+        ),
+        'token' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => -2,
+        ),
+      ),
+      'label' => 'Description',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 1,
+      ),
+      'weight' => -2,
+      'widget' => 
+      array (
+        'active' => 0,
+        'module' => 'text',
+        'settings' => 
+        array (
+          'default_value_php' => NULL,
+          'rows' => 5,
+          'size' => 60,
+        ),
+        'type' => 'text_textarea',
+        'weight' => 2,
+      ),
+      'widget_type' => 'text_textarea',
+      'field_name' => 'field_ba_description',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'description' => 'Tell us where your boondocking location is. Exact location details cannot be entered for your privacy, but a general location (your city and state and possibly your zip code) will help other users determine if your boondocking location is on or close to their route. In larger cities a zip or postal code will help users narrow down your location considerably.
+    ',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'location_cck',
+          'settings' => 
+          array (
+          ),
+          'type' => 'location_all',
+          'weight' => 3,
+        ),
+        'full' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'location_cck',
+          'settings' => 
+          array (
+          ),
+          'type' => 'location_default',
+          'weight' => -1,
+        ),
+        'rss' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'location_cck',
+          'settings' => 
+          array (
+          ),
+          'type' => 'location_default',
+          'weight' => -1,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'location_cck',
+          'settings' => 
+          array (
+          ),
+          'type' => 'location_default',
+          'weight' => -1,
+        ),
+        'token' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'location_cck',
+          'settings' => 
+          array (
+          ),
+          'type' => 'location_default',
+          'weight' => -1,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Your Location',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+      ),
+      'weight' => -1,
+      'widget' => 
+      array (
+        'active' => 0,
+        'module' => 'location_cck',
+        'settings' => 
+        array (
+        ),
+        'type' => 'location',
+        'weight' => 3,
+      ),
+      'widget_type' => 'location',
+      'field_name' => 'field_boondock_location',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Enter the number of guests\' RVs you can accommodate on your property If you do not have any spots available, please check the "I prefer to not provide boondocking at this time" checkbox at the top of this page. ',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 4,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 6,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 6,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 6,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 6,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 6,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 6,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Number of Spots',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'max' => '',
+        'min' => '',
+        'prefix' => '',
+        'suffix' => '',
+      ),
+      'weight' => 6,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 4,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_ba_number_of_spots',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'What size of RV can park on your property?',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 5,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 7,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 7,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 7,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 7,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 7,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'number',
+          'settings' => 
+          array (
+            'decimal_separator' => '.',
+            'prefix_suffix' => true,
+            'scale' => 0,
+            'thousand_separator' => '',
+          ),
+          'type' => 'number_integer',
+          'weight' => 7,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Max RV Length',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'max' => '',
+        'min' => '',
+        'prefix' => '',
+        'suffix' => '',
+      ),
+      'weight' => 7,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 5,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_ba_max_rv_length_int',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'The maximum number of nights you\'re willing to accommodate a guest boondocker.',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'inline',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 6,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 8,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 8,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 8,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 8,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 8,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 8,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Max Nights',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 8,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 6,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_ba_max_nights',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => '',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 7,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 9,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 9,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 9,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 9,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 9,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 9,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Pull Through Parking Available',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 9,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 7,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_ba_pullthrough_spot',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Indicate what hookups you have available on your property, if any.',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 8,
+        ),
+        'full' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_plain',
+          'weight' => 10,
+        ),
+        'rss' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 10,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 10,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 10,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 10,
+        ),
+        'token' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 10,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Hookups Available',
+      'required' => 0,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 10,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_buttons',
+        'weight' => 8,
+      ),
+      'widget_type' => 'optionwidgets_buttons',
+      'field_name' => 'field_ba_hookups',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Can guests put out their slideouts or awnings?',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 9,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Slideouts/Awnings Allowed',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 11,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 10,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_ba_slideout_awning',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Can guests use generators?',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 10,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 12,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 12,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 12,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 12,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 12,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 12,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Generators Allowed',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 1,
+      ),
+      'weight' => 12,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 11,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_generators_allowed',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Can guests put out lawn chairs?',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'inline',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 11,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 13,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 13,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 13,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 13,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 13,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 13,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Lawn Chairs Allowed',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 13,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 12,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_lawn_chairs_allowed',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Can guests use a barbecue?',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 12,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 14,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 14,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 14,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 14,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 14,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 14,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Barbecues Allowed',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 14,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 13,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_barbecues_allowed',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Are pets welcome at your location?',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 13,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 15,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 15,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 15,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 15,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 15,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 15,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Pets Welcome',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 15,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 14,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_ba_pets_welcome',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'default_value_function' => '',
+      'default_value_php' => '',
+      'description' => 'Can you provide wireless internet for guests?',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'list',
+          'settings' => 
+          array (
+          ),
+          'type' => 'list_default',
+          'weight' => 14,
+        ),
+        'email_html' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 17,
+        ),
+        'email_plain' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 17,
+        ),
+        'full' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 17,
+        ),
+        'rss' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 17,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 17,
+        ),
+        'token' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 17,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Wifi Available',
+      'required' => 1,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 0,
+      ),
+      'weight' => 17,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'options',
+        'settings' => 
+        array (
+        ),
+        'type' => 'options_select',
+        'weight' => 15,
+      ),
+      'widget_type' => 'optionwidgets_select',
+      'field_name' => 'field_ba_wifi_available',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => 
+      array (
+        0 => 
+        array (
+          'value' => '',
+          'format' => 1,
+          '_error_element' => 'default_value_widget][field_ba_access_road_conditions][0][value',
+        ),
+      ),
+      'description' => 'Is there anything people should know about the road to access your boondocking location? Gravel road, hills, sharp curves and low hanging trees or bridges that may hamper access by large RVs? Let them know here.',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 15,
+        ),
+        'full' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 18,
+        ),
+        'rss' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 18,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 18,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 18,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 18,
+        ),
+        'token' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 18,
+        ),
+      ),
+      'label' => 'Access Road Conditions',
+      'required' => 0,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 1,
+      ),
+      'weight' => 18,
+      'widget' => 
+      array (
+        'active' => 0,
+        'module' => 'text',
+        'settings' => 
+        array (
+          'default_value_php' => NULL,
+          'rows' => 5,
+          'size' => 60,
+        ),
+        'type' => 'text_textarea',
+        'weight' => 16,
+      ),
+      'widget_type' => 'text_textarea',
+      'field_name' => 'field_ba_access_road_conditions',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => 
+      array (
+        0 => 
+        array (
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_ba_availability][0][value',
+        ),
+      ),
+      'description' => 'Tell fellow boondockers about when you have a spot available for them to use. For example, "We are home most weekends this summer and welcome guests, however we cannot accommodate any RVs after Labour day weekend. Send us a message to see if we have a spot available to fit your timeline!"',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'inline',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 16,
+        ),
+        'full' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 19,
+        ),
+        'rss' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 19,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 19,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 19,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 19,
+        ),
+        'token' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 19,
+        ),
+      ),
+      'label' => 'Availability',
+      'required' => 0,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 1,
+      ),
+      'weight' => 19,
+      'widget' => 
+      array (
+        'active' => 0,
+        'module' => 'text',
+        'settings' => 
+        array (
+          'default_value_php' => NULL,
+          'rows' => 5,
+          'size' => 60,
+        ),
+        'type' => 'text_textarea',
+        'weight' => 17,
+      ),
+      'widget_type' => 'text_textarea',
+      'field_name' => 'field_ba_availability',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => '',
+      'description' => 'Optionally add up to 5 photos of your boondocking location or of the attractions others may want to visit in your area.',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'inline',
+          'module' => 'image',
+          'settings' => 
+          array (
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => 5,
+        ),
+        'full' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => 
+          array (
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => 18,
+        ),
+        'rss' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => 
+          array (
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => 18,
+        ),
+        'search_index' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => 
+          array (
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => 18,
+        ),
+        'search_result' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => 
+          array (
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => 18,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'hidden',
+          'settings' => 
+          array (
+          ),
+          'type' => 'hidden',
+          'weight' => 18,
+        ),
+        'token' => 
+        array (
+          'label' => 'hidden',
+          'module' => 'image',
+          'settings' => 
+          array (
+            'image_link' => '',
+            'image_style' => '',
+          ),
+          'type' => 'image',
+          'weight' => 18,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Photos of this Boondocking Location',
+      'required' => 0,
+      'settings' => 
+      array (
+        'file_directory' => 'users/[node:user]/images',
+        'file_extensions' => 'png gif jpg jpeg',
+        'max_filesize' => '4M',
+        'max_resolution' => '640x480',
+        'min_resolution' => '',
+        'alt_field' => 0,
+        'title_field' => 1,
+        'default_image' => 0,
+        'filefield_paths_enabled' => 1,
+        'filefield_paths' => 
+        array (
+          'file_path' => 
+          array (
+            'value' => 'users/[node:user]/images',
+            'options' => 
+            array (
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+          ),
+          'retroactive_update' => 0,
+          'active_updating' => 0,
+          'file_name' => 
+          array (
+            'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+            'options' => 
+            array (
+              'pathauto' => 0,
+              'transliterate' => 0,
+            ),
+          ),
+        ),
+        'exclude_cv' => false,
+      ),
+      'weight' => 18,
+      'widget' => 
+      array (
+        'weight' => 6,
+        'type' => 'image_image',
+        'module' => 'image',
+        'active' => 1,
+        'settings' => 
+        array (
+          'progress_indicator' => 'bar',
+          'preview_image_style' => 'thumbnail',
+        ),
+      ),
+      'widget_type' => 'imagefield_widget',
+      'field_name' => 'field_ba_photo',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'default_value' => NULL,
+      'description' => 'Optionally, include a list of local attractions that might be of interest to guests staying at your place.',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 6,
+        ),
+        'email_html' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'email_plain' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'full' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'rss' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'teaser' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+        'token' => 
+        array (
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => 
+          array (
+          ),
+          'type' => 'text_default',
+          'weight' => 11,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'Suggested Local Attractions',
+      'required' => 0,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+        'text_processing' => 1,
+      ),
+      'weight' => 11,
+      'widget' => 
+      array (
+        'active' => 1,
+        'module' => 'text',
+        'settings' => 
+        array (
+          'rows' => 5,
+        ),
+        'type' => 'text_textarea',
+        'weight' => 6,
+      ),
+      'widget_type' => 'text_textarea',
+      'field_name' => 'field_ba_local_attractions',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'description' => '',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'computed_field',
+          'settings' => 
+          array (
+          ),
+          'type' => 'computed_field_plain',
+          'weight' => 18,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'ba_electric_hookup_computed',
+      'required' => 0,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+      ),
+      'widget' => 
+      array (
+        'active' => 0,
+        'module' => 'computed_field',
+        'settings' => 
+        array (
+        ),
+        'type' => 'computed',
+        'weight' => 32,
+      ),
+      'field_name' => 'field_ba_electric_hookup_compute',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    ),
+    array (
+      'description' => '',
+      'display' => 
+      array (
+        'default' => 
+        array (
+          'label' => 'above',
+          'module' => 'computed_field',
+          'settings' => 
+          array (
+          ),
+          'type' => 'computed_field_plain',
+          'weight' => 19,
+        ),
+      ),
+      'exclude_cv' => 0,
+      'label' => 'ba_water_hookup_computed',
+      'required' => 0,
+      'settings' => 
+      array (
+        'exclude_cv' => false,
+      ),
+      'widget' => 
+      array (
+        'active' => 0,
+        'module' => 'computed_field',
+        'settings' => 
+        array (
+        ),
+        'type' => 'computed',
+        'weight' => 33,
+      ),
+      'field_name' => 'field_ba_water_hookup_computed',
+      'entity_type' => 'node',
+      'bundle' => 'host_location',
+    )
+  );
+
+  // all of my fields should already exist, since I've stolen them from
+  // the previously existing boondocking_available profile
+  foreach ($instances  as $instance) {
+    field_create_instance($instance);
+  }
+}
+
+// Will remove this, don't want an accidental module deletion to delete all my data
+function BDW_host_locations_uninstall() {
+  $ournewtype = 'host_location';
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => $ournewtype));
+  $nodeids = array();
+  foreach ($result as $row) {
+    $nodeids[] = $row->nid;
+  }
+  node_delete_multiple($nodeids);
+  $instances = field_info_instances('node', 'host_location');
+  foreach ($instances as $instance) {
+    field_delete_instance($instance);
+  }
+  node_type_delete($ournewtype);
+}
+

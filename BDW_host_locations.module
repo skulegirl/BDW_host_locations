@@ -1,0 +1,124 @@
+<?php
+
+function BDW_host_locations_node_info() {
+  return array(
+    'host_location' => array(
+      'name' => t('Host Location'),
+      'base' => 'host_location',
+      'description' => t( 'Details about a host location.' ),
+      'help' => t('Enter the details about your host location.'),
+      'has_title' => TRUE,
+      'title_label' => t('Host Location Name'),
+      'locked' => 1,
+    )
+  );
+}
+
+/**
+ * Implement hook_form for host_location form type
+ */
+function host_location_form($node, &$form_state) {
+  $form = node_content_form($node, $form_state);
+  $form['title']['#description'] = t("Enter a name for your host boondocking location. Feel free to be creative!");
+  return $form;
+}
+
+function BDW_host_locations_form_host_location_node_form_alter(&$form, &$form_state, $form_id) {
+  $form['actions']['submit']['#submit'][] = '_BDW_host_locations_redirct_handler';
+  $form['actions']['done']['#submit'][] = '_BDW_host_locations_redirct_handler';
+  unset($form['actions']['preview_changes']);
+  unset($form['actions']['preview']);
+}
+
+function BDW_host_locations_node_view($node, $view_mode, $langcode) {
+  if ($node->type == 'host_location' && $view_mode == 'full') {
+    global $user;
+    if (node_access('update', $node)) {
+      // user is owner or superuser
+      $redirect = _BDW_host_location_get_node_redirect_path($node->uid, $node->nid);
+    }
+    else {
+      $redirect = array('/user/' . $node->uid);
+    }
+    call_user_func_array('drupal_goto', $redirect);
+  }
+}
+
+function _BDW_host_locations_redirct_handler($form, &$form_state) {
+  $uid = $form['#entity']->uid;
+  $nid = $form['#entity']->nid;
+  $form_state['redirect'] = _BDW_host_location_get_node_redirect($uid, $nid);
+}
+
+// uid is the uid of the owner of that node
+// nid is the node id that we're redirecting, NULL if it's new and unknown
+function _BDW_host_location_get_node_redirect_path($uid, $nid = NULL) {
+  dd($uid, 'uid in redirect_path');
+  dd($nid, 'nid in redirect path');
+  // get all nids of user's host location nodes
+  $nids = db_select('node', 'n')
+    ->fields('n', array('nid'))
+    ->fields('n', array('type'))
+    ->fields('n', array('uid'))
+    ->condition('n.type', 'host_location')
+    ->condition('n.uid', $uid)
+    ->execute()
+    ->fetchCol(); // returns an indexed array
+
+  $redirect_path = '/user/' . $uid . '/host-locations';
+  $options = array();
+
+  // the order of the nids should be the same as the order of the tabs
+  // if nid isn't set, then this is a new node, so go to the last one in the quicktab
+  if (!isset($nid)) {
+    $options['query'] = array('qt-user_host_locations' => count($nids)-1);
+  }
+  elseif (($key = array_search($nid, $nids)) !== FALSE) {
+    $options['query'] = array('qt-user_host_locations' => $key);
+  }
+
+  return array($redirect_path, $options);
+}
+
+function _BDW_host_locations_migrate() {
+  $instances = field_info_instances('node', 'host_location');
+
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'profile2')
+    ->entityCondition('bundle', 'boondocking_available');
+
+  $result = $query->execute();
+
+  $i=0;
+  foreach($result['profile2'] as $record) {
+    $bdas = entity_load('profile2', array($record->pid));
+    $bda = $bdas[$record->pid];
+
+
+    $user = user_load($bda->uid);
+    $field = field_get_items('profile2', $bda, 'field_ba_description');
+    if (empty($field))
+      continue;
+    print('Migrating ' . $user->name ."'s BDA\n");
+    $i++;
+    
+    $values = array(
+      'type' => 'host_location',
+      'uid' => $bda->uid,
+      'status' => 1,
+      'comment' => 0,
+      'promote' => 0,
+    );
+
+    $entity = entity_create('node', $values);
+    $wrapper = entity_metadata_wrapper('node', $entity);
+
+    $wrapper->title->set($user->name . '\'s Host Location');
+    foreach ($instances as $fieldinstancename => $fieldinstance) {
+        $entity->$fieldinstancename = $bda->$fieldinstancename;
+    }
+    $wrapper->save();
+  }
+}
+

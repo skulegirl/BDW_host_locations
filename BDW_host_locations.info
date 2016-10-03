@@ -1,0 +1,7 @@
+name = BDW_host_locations
+description = Module to create host locations node type and migrate old profile2 data over to it
+version = "7.x-dev"
+project = "BDW_host_locations"
+core = "7.x"
+files[] = BDW_host_locations.install
+files[] = BDW_host_locations.module
